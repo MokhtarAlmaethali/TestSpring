@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- register A,B and their relation  -->
+
+<!-- scope="prototype" to create new instance every time 
+	not singleton -->
+	<bean id="a" class="com.yemensoft.test.A" scope="prototype" >
+		<property name="b" ref="b2"></property>
+	</bean>
+	
+	<!-- because Class B is abstract so it can not be initi 
+	
+	<bean id="b" class="com.yemensoft.test.B">
+	</bean> -->
+	<bean id="b1" class="com.yemensoft.test.BChild1">
+	</bean>
+	<bean id="b2" class="com.yemensoft.test.BChild2">
+	</bean>
+	
+	<bean id="testController" class="com.yemensoft.controller.TestController">
+		<property name="testService" ref="testService"></property>
+	</bean>
+	<bean id="testService" class="com.yemensoft.model.service.TestService">
+		<property name="testMapper" ref="testMapper"></property>
+	</bean>
+	<bean id="testMapper" class="com.yemensoft.model.mapper.TestMapper"></bean>
+	
+	<bean id="valueInjectionService" class="com.yemensoft.model.service.ValueInjectionService">
+		<property name="driver" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc://localhost:3360/scott"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="roots"></property>
+		<property name="list">
+			<list>
+				<value>listitem1</value>
+				<value>listitem2</value>
+				<value>listitem3</value>
+				<value>listitem4</value>
+			</list>	
+		</property>
+		
+		<property name="set">
+			<set>
+				<value>setitem1</value>
+				<value>setitem2</value>
+				<value>setitem3</value>
+				<value>setitem4</value>
+			</set>
+		</property>
+		
+		<property name="map">
+			<map>
+				<entry key="m1" value="v1"></entry>
+				<entry key="m2" value="v2"></entry>
+				<entry key="m3" value="v3"></entry>
+			</map>
+		</property>
+		
+		<property name="p">
+			<props>
+				<prop key="p1"> property1</prop>
+				<prop key="p2"> property2</prop>
+				<prop key="p3"> property3</prop>
+			</props>
+		</property>
+	</bean>
+</beans>
